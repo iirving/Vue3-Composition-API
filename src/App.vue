@@ -23,15 +23,28 @@ const items = ref([
     purchased: false
   }
 ]);
-let newItem = ref("");
+const newItem = ref("");
 const newItemHighPriority = ref(false);
 
+/**
+ * Computes the character count of the newItem value.
+ *
+ * @returns {number} The character count of the newItem value.
+ */
 const characterCount = computed(() => {
   return newItem.value.length;
 });
 
+/**
+ * Computed property that returns a reversed copy of the items array.
+ *
+ * @returns {Array} The reversed items array.
+ */
 const reverseItemsArray = computed(() => [...items.value].reverse());
 
+/**
+ * Saves a new item to the items array.
+ */
 const saveItem = () => {
   items.value.push({
     id: items.value.length + 1,
@@ -42,11 +55,20 @@ const saveItem = () => {
   newItem.value = "";
   newItemHighPriority.value = false;
 }
+
+/**
+ * Toggles the editing state and resets the newItem and newItemHighPriority values.
+ */
 const doEdit = () => {
   editing.value = !editing.value;
   newItem.value = "";
   newItemHighPriority.value = false;
 }
+
+/**
+ * Toggles the purchased status of an item.
+ * @param {Object} item - The item to toggle the purchased status for.
+ */
 const togglePurchased = (item) => {
   item.purchased = !item.purchased;
 }
