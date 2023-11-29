@@ -35,8 +35,8 @@ const doEdit = () => {
       <input type="checkbox" v-model="newItemHighPriority" value="high">
       High Priority
     </label>
-    <button class="btn btn-primary">
-      save
+    <button :disabled="newItem.length < 5" class="btn btn-primary">
+      Save
     </button>
     <br>
     {{ newItemHighPriority }}
