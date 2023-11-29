@@ -33,10 +33,12 @@ const saveItem = () => {
     purchased: false
   });
   newItem.value = "";
+  newItemHighPriority.value = false;
 }
 const doEdit = () => {
   editing.value = !editing.value;
   newItem.value = "";
+  newItemHighPriority.value = false;
 }
 const togglePurchased = (item) => {
   item.purchased = !item.purchased;
@@ -65,7 +67,7 @@ const togglePurchased = (item) => {
     {{ newItemHighPriority }}
   </form>
   <ul>
-    <li v-for="({ id, label, purchased, highPriority }, index) in items" :key="id" @click="togglePurchased(index[id])"
+    <li v-for="({ id, label, purchased, highPriority }, index) in items" :key="id" @click="togglePurchased(items[index])"
       :class="{
         strikeout: purchased,
         'static-class': true,
