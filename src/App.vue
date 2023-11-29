@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 
 const header = ref('Shopping List App');
+const editing = ref(false);
 const items = ref([
   { id: 5, label: "10 party hats" },
   { id: 2, label: "2 board games" },
@@ -13,11 +14,20 @@ const saveItem = () => {
   items.value.push({ id: items.value.length + 1, label: newItem.value });
   newItem.value = "";
 }
+const doEdit = () => {
+  editing.value = !editing.value;
+  newItem.value = "";
+}
 </script>
 
 <template>
-  <h1>{{ header || 'Welcome' }}</h1>
-  <form class="add-item-form" @submit.prevent="saveItem">
+  <div>
+    <h1>{{ header || 'Welcome' }}</h1>
+    <button class="btn btn-primary" @click="doEdit">
+      {{ editing ? 'Cacnal' : 'Add item' }}
+    </button>
+  </div>
+  <form class="add-item-form" v-if="editing" @submit.prevent="saveItem">
 
     <input type="text" placeholder="Add an item." v-model.trim="newItem">
 
@@ -34,4 +44,5 @@ const saveItem = () => {
   <ul>
     <li v-for="item in items" :key="item.id"> {{ item.label }}</li>
   </ul>
+  <p v-if="items.length === 0">No items yet.</p>
 </template>
