@@ -30,6 +30,8 @@ const characterCount = computed(() => {
   return newItem.value.length;
 });
 
+const reverseItemsArray = computed(() => [...items.value].reverse());
+
 const saveItem = () => {
   items.value.push({
     id: items.value.length + 1,
@@ -76,8 +78,8 @@ const togglePurchased = (item) => {
     {{ characterCount }} characters
   </div>
   <ul>
-    <li v-for="({ id, label, purchased, highPriority }, index) in items" :key="id" @click="togglePurchased(items[index])"
-      :class="{
+    <li v-for="({ id, label, purchased, highPriority }, index) in reverseItemsArray" :key="id"
+      @click="togglePurchased(reverseItemsArray[index])" :class="{
         strikeout: purchased,
         'static-class': true,
         priority: highPriority
