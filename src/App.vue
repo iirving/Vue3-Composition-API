@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const header = ref('Shopping List App');
 const editing = ref(false);
@@ -25,6 +25,11 @@ const items = ref([
 ]);
 let newItem = ref("");
 const newItemHighPriority = ref(false);
+
+const characterCount = computed(() => {
+  return newItem.value.length;
+});
+
 const saveItem = () => {
   items.value.push({
     id: items.value.length + 1,
@@ -60,12 +65,16 @@ const togglePurchased = (item) => {
       <input type="checkbox" v-model="newItemHighPriority" value="high">
       High Priority
     </label>
+
     <button :disabled="newItem.length < 5" class="btn btn-primary">
       Save
     </button>
-    <br>
-    {{ newItemHighPriority }}
+
+
   </form>
+  <div v-if="editing">
+    {{ characterCount }} characters
+  </div>
   <ul>
     <li v-for="({ id, label, purchased, highPriority }, index) in items" :key="id" @click="togglePurchased(items[index])"
       :class="{
